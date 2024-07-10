@@ -2,8 +2,8 @@
 ## Auto Enroll on Launch 
 #### This method allows the Intune SDK to handle all authentication with MSAL and enrollment before your app finishes launching. <br> ref:
 <br>
->  [!Note] 
->  : Your application will always require a App Protection Policy when using this method.
+> [!NOTE]
+> : Your application will always require a App Protection Policy when using this method.
 <br> Simply set the two settings to 'Yes' in the IntuneMaMSetting dictionary in the app's Info.plist.
 <br>
 Ref :https://learn.microsoft.com/en-us/mem/intune/developer/app-sdk-ios-phase3#let-intune-handle-authentication-and-enrollment-at-launch
