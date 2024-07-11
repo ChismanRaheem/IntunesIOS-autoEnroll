@@ -1,0 +1,6 @@
+framework module Pods_autoEnroll {
+  umbrella header "Pods-autoEnroll-umbrella.h"
+
+  export *
+  module * { export * }
+}

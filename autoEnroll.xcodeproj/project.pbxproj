@@ -13,7 +13,27 @@
 		18C6865C2C3E139400436D83 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 18C6865B2C3E139400436D83 /* Base */; };
 		18C6865E2C3E139600436D83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C6865D2C3E139600436D83 /* Assets.xcassets */; };
 		18C686612C3E139600436D83 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 18C686602C3E139600436D83 /* Base */; };
+		18C6866A2C3E163800436D83 /* IntuneMAMSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C686692C3E163800436D83 /* IntuneMAMSwift.xcframework */; };
+		18C6866B2C3E163800436D83 /* IntuneMAMSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18C686692C3E163800436D83 /* IntuneMAMSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		18C6866E2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C6866D2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework */; };
+		18C6866F2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18C6866D2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		58C27F767F344A8F07086209 /* Pods_autoEnroll.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E4EFDA9701CC26FDF896D3 /* Pods_autoEnroll.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		18C6866C2C3E163800436D83 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18C6866F2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework in Embed Frameworks */,
+				18C6866B2C3E163800436D83 /* IntuneMAMSwift.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		18C686512C3E139400436D83 /* autoEnroll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = autoEnroll.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +44,12 @@
 		18C6865D2C3E139600436D83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18C686602C3E139600436D83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18C686622C3E139600436D83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18C686692C3E163800436D83 /* IntuneMAMSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IntuneMAMSwift.xcframework; path = "../../../Downloads/ms-intune-app-sdk-ios-main 2/IntuneMAMSwift.xcframework"; sourceTree = "<group>"; };
+		18C6866D2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IntuneMAMSwiftStub.xcframework; path = "../../../Downloads/ms-intune-app-sdk-ios-main 2/IntuneMAMSwiftStub.xcframework"; sourceTree = "<group>"; };
+		18C686702C3E181200436D83 /* autoEnroll.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = autoEnroll.entitlements; sourceTree = "<group>"; };
+		3F90450C6D7FE41926A620D2 /* Pods-autoEnroll.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-autoEnroll.debug.xcconfig"; path = "Target Support Files/Pods-autoEnroll/Pods-autoEnroll.debug.xcconfig"; sourceTree = "<group>"; };
+		96E4EFDA9701CC26FDF896D3 /* Pods_autoEnroll.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_autoEnroll.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C743EB2E802BD01E6D49F267 /* Pods-autoEnroll.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-autoEnroll.release.xcconfig"; path = "Target Support Files/Pods-autoEnroll/Pods-autoEnroll.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +57,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C6866E2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework in Frameworks */,
+				18C6866A2C3E163800436D83 /* IntuneMAMSwift.xcframework in Frameworks */,
+				58C27F767F344A8F07086209 /* Pods_autoEnroll.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DB6FBC845D4485678FAF456 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3F90450C6D7FE41926A620D2 /* Pods-autoEnroll.debug.xcconfig */,
+				C743EB2E802BD01E6D49F267 /* Pods-autoEnroll.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		18C686482C3E139400436D83 = {
 			isa = PBXGroup;
 			children = (
 				18C686532C3E139400436D83 /* autoEnroll */,
 				18C686522C3E139400436D83 /* Products */,
+				18C686682C3E163800436D83 /* Frameworks */,
+				0DB6FBC845D4485678FAF456 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +96,7 @@
 		18C686532C3E139400436D83 /* autoEnroll */ = {
 			isa = PBXGroup;
 			children = (
+				18C686702C3E181200436D83 /* autoEnroll.entitlements */,
 				18C686542C3E139400436D83 /* AppDelegate.swift */,
 				18C686562C3E139400436D83 /* SceneDelegate.swift */,
 				18C686582C3E139400436D83 /* ViewController.swift */,
@@ -67,6 +108,16 @@
 			path = autoEnroll;
 			sourceTree = "<group>";
 		};
+		18C686682C3E163800436D83 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18C6866D2C3E164F00436D83 /* IntuneMAMSwiftStub.xcframework */,
+				18C686692C3E163800436D83 /* IntuneMAMSwift.xcframework */,
+				96E4EFDA9701CC26FDF896D3 /* Pods_autoEnroll.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +125,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18C686652C3E139600436D83 /* Build configuration list for PBXNativeTarget "autoEnroll" */;
 			buildPhases = (
+				C025087FCAC15B41BD63D387 /* [CP] Check Pods Manifest.lock */,
 				18C6864D2C3E139400436D83 /* Sources */,
 				18C6864E2C3E139400436D83 /* Frameworks */,
 				18C6864F2C3E139400436D83 /* Resources */,
+				18C6866C2C3E163800436D83 /* Embed Frameworks */,
+				DD3189028810FF8C4E44033B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +186,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C025087FCAC15B41BD63D387 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-autoEnroll-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD3189028810FF8C4E44033B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-autoEnroll/Pods-autoEnroll-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-autoEnroll/Pods-autoEnroll-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-autoEnroll/Pods-autoEnroll-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		18C6864D2C3E139400436D83 /* Sources */ = {
@@ -203,7 +299,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -266,7 +362,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -287,9 +383,11 @@
 		};
 		18C686662C3E139600436D83 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F90450C6D7FE41926A620D2 /* Pods-autoEnroll.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = autoEnroll/autoEnroll.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -314,9 +412,11 @@
 		};
 		18C686672C3E139600436D83 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C743EB2E802BD01E6D49F267 /* Pods-autoEnroll.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = autoEnroll/autoEnroll.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;

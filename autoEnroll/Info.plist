@@ -2,6 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>IntuneMAMSettings</key>
+    <dict>
+        <key>AutoEnrollOnLaunch</key>
+        <true/>
+	<key>MAMPolicyRequired</key>
+	<true/>
+   </dict> 
+   <key>CFBundleURLTypes</key>
+   <array>
+	<dict>
+	    <key>CFBundleURLSchemes</key>
+	    <array>
+		<string>msauth.com.microsoft.intunemam</string>
+		<string>autoenroll</string>
+		<string>msauth.com.redmond.autoenroll</string>
+		<string>msauth.com.redmond.autoenroll-intunemam</string>
+	   </array>
+ 	</dict>
+   </array>					
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

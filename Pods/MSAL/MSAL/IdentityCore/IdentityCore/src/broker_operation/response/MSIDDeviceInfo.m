@@ -1,0 +1,215 @@
+// Copyright (c) Microsoft Corporation.
+// All rights reserved.
+//
+// This code is licensed under the MIT License.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files(the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions :
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#import "MSIDDeviceInfo.h"
+#import "MSIDConstants.h"
+#import "MSIDWorkPlaceJoinUtil.h"
+#import "NSJSONSerialization+MSIDExtensions.h"
+#import "MSIDJsonSerializer.h"
+
+static NSArray *deviceModeEnumString;
+
+@implementation MSIDDeviceInfo
+
+
+- (instancetype)initWithDeviceMode:(MSIDDeviceMode)deviceMode
+                  ssoExtensionMode:(MSIDSSOExtensionMode)ssoExtensionMode
+                 isWorkPlaceJoined:(BOOL)isWorkPlaceJoined
+                     brokerVersion:(NSString *)brokerVersion
+{
+    self = [super init];
+    
+    if (self)
+    {
+        _deviceMode = deviceMode;
+        _ssoExtensionMode = ssoExtensionMode;
+        _wpjStatus = isWorkPlaceJoined ? MSIDWorkPlaceJoinStatusJoined : MSIDWorkPlaceJoinStatusNotJoined;
+        _brokerVersion = brokerVersion;
+    }
+    
+    return self;
+}
+
+#pragma mark - MSIDJsonSerializable
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)json error:(__unused NSError **)error
+{
+    self = [super init];
+    
+    if (self)
+    {
+        _deviceMode = [self deviceModeEnumFromString:[json msidStringObjectForKey:MSID_BROKER_DEVICE_MODE_KEY]];
+        _ssoExtensionMode = [self ssoExtensionModeEnumFromString:[json msidStringObjectForKey:MSID_BROKER_SSO_EXTENSION_MODE_KEY]];
+        _wpjStatus = [self wpjStatusEnumFromString:[json msidStringObjectForKey:MSID_BROKER_WPJ_STATUS_KEY]];
+        _brokerVersion = [json msidStringObjectForKey:MSID_BROKER_BROKER_VERSION_KEY];
+        _preferredAuthConfig = [self preferredAuthConfigurationEnumFromString:[json msidStringObjectForKey:MSID_BROKER_PREFERRED_AUTH_CONFIGURATION_KEY]];
+        
+#if TARGET_OS_OSX
+        _platformSSOStatus = [self platformSSOStatusEnumFromString:[json msidStringObjectForKey:MSID_PLATFORM_SSO_STATUS_KEY]];
+#endif
+        
+        NSString *jsonDataString = [json msidStringObjectForKey:MSID_ADDITIONAL_EXTENSION_DATA_KEY];
+        if (jsonDataString)
+        {
+            _additionalExtensionData = [NSJSONSerialization msidNormalizedDictionaryFromJsonData:[jsonDataString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                                           error:nil];
+        }
+        
+        NSString *extraDeviceInfoStr = [json msidStringObjectForKey:MSID_EXTRA_DEVICE_INFO_KEY];
+        if (extraDeviceInfoStr)
+        {
+            _extraDeviceInfo = [extraDeviceInfoStr msidJson];
+        }
+        
+    }
+    
+    return self;
+}
+
+- (NSDictionary *)jsonDictionary
+{
+    NSMutableDictionary *json = [NSMutableDictionary new];
+    
+    json[MSID_BROKER_DEVICE_MODE_KEY] = [self deviceModeStringFromEnum:self.deviceMode];
+    json[MSID_BROKER_SSO_EXTENSION_MODE_KEY] = [self ssoExtensionModeStringFromEnum:self.ssoExtensionMode];
+    json[MSID_BROKER_WPJ_STATUS_KEY] = [self wpjStatusStringFromEnum:self.wpjStatus];
+    json[MSID_BROKER_BROKER_VERSION_KEY] = self.brokerVersion;
+    json[MSID_BROKER_PREFERRED_AUTH_CONFIGURATION_KEY] = [self preferredAuthConfigurationStringFromEnum:self.preferredAuthConfig];
+#if TARGET_OS_OSX
+    json[MSID_PLATFORM_SSO_STATUS_KEY] = [self platformSSOStatusStringFromEnum:self.platformSSOStatus];
+#endif
+    json[MSID_ADDITIONAL_EXTENSION_DATA_KEY] = [self.additionalExtensionData msidJSONSerializeWithContext:nil];
+    if (self.extraDeviceInfo)
+    {
+        json[MSID_EXTRA_DEVICE_INFO_KEY] = [self.extraDeviceInfo msidJSONSerializeWithContext:nil];
+    }
+    
+    return json;
+}
+
+- (NSString *)deviceModeStringFromEnum:(MSIDDeviceMode)deviceMode
+{
+    switch (deviceMode) {
+        case MSIDDeviceModePersonal:
+            return @"personal";
+        case MSIDDeviceModeShared:
+            return @"shared";
+        default:
+            return nil;
+    }
+}
+
+- (MSIDDeviceMode)deviceModeEnumFromString:(NSString *)deviceModeString
+{
+    if ([deviceModeString isEqualToString:@"personal"])    return MSIDDeviceModePersonal;
+    if ([deviceModeString isEqualToString:@"shared"])  return MSIDDeviceModeShared;
+
+    return MSIDDeviceModePersonal;
+}
+
+- (NSString *)ssoExtensionModeStringFromEnum:(MSIDSSOExtensionMode)ssoExtensionMode
+{
+    switch (ssoExtensionMode) {
+        case MSIDSSOExtensionModeFull:
+            return @"full";
+        case MSIDSSOExtensionModeSilentOnly:
+            return @"silent_only";
+        default:
+            return nil;
+    }
+}
+
+- (MSIDSSOExtensionMode)ssoExtensionModeEnumFromString:(NSString *)ssoExtensionModeString
+{
+    if ([ssoExtensionModeString isEqualToString:@"full"])    return MSIDSSOExtensionModeFull;
+    if ([ssoExtensionModeString isEqualToString:@"silent_only"])  return MSIDSSOExtensionModeSilentOnly;
+
+    return MSIDSSOExtensionModeFull;
+}
+
+- (NSString *)wpjStatusStringFromEnum:(MSIDWorkPlaceJoinStatus)wpjStatus
+{
+    switch (wpjStatus) {
+        case MSIDWorkPlaceJoinStatusNotJoined:
+            return @"notJoined";
+        case MSIDWorkPlaceJoinStatusJoined:
+            return @"joined";
+        default:
+            return nil;
+    }
+}
+
+- (MSIDWorkPlaceJoinStatus)wpjStatusEnumFromString:(NSString *)wpjStatusString
+{
+    if ([wpjStatusString isEqualToString:@"notJoined"]) return MSIDWorkPlaceJoinStatusNotJoined;
+    if ([wpjStatusString isEqualToString:@"joined"])    return MSIDWorkPlaceJoinStatusJoined;
+
+    return MSIDWorkPlaceJoinStatusNotJoined;
+}
+
+- (NSString *)platformSSOStatusStringFromEnum:(MSIDPlatformSSOStatus)platformSSOStatus
+{
+    switch (platformSSOStatus) {
+        case MSIDPlatformSSONotEnabled:
+            return @"platformSSONotEnabled";
+        case MSIDPlatformSSOEnabledNotRegistered:
+            return @"platformSSOEnabledNotRegistered";
+        case MSIDPlatformSSOEnabledAndRegistered:
+            return @"platformSSOEnabledAndRegistered";
+        
+        default:
+            return nil;
+    }
+}
+
+- (MSIDPlatformSSOStatus)platformSSOStatusEnumFromString:(NSString *)platformSSOStatusString
+{
+    if ([platformSSOStatusString isEqualToString:@"platformSSONotEnabled"])    return MSIDPlatformSSONotEnabled;
+    if ([platformSSOStatusString isEqualToString:@"platformSSOEnabledNotRegistered"])  return MSIDPlatformSSOEnabledNotRegistered;
+    if ([platformSSOStatusString isEqualToString:@"platformSSOEnabledAndRegistered"])  return MSIDPlatformSSOEnabledAndRegistered;
+    
+    return MSIDPlatformSSONotEnabled;
+}
+
+- (NSString *)preferredAuthConfigurationStringFromEnum:(MSIDPreferredAuthMethod)preferredAuthConfiguration
+{
+    switch (preferredAuthConfiguration) {
+        case MSIDPreferredAuthMethodNotConfigured:
+            return @"preferredAuthNotConfigured";
+        case MSIDPreferredAuthMethodQRPIN:
+            return @"preferredAuthQRPIN";
+        
+        default:
+            return nil;
+    }
+}
+
+- (MSIDPreferredAuthMethod)preferredAuthConfigurationEnumFromString:(NSString *)preferredAuthConfigurationString
+{
+    if ([preferredAuthConfigurationString isEqualToString:@"preferredAuthNotConfigured"])    return MSIDPreferredAuthMethodNotConfigured;
+    if ([preferredAuthConfigurationString isEqualToString:@"preferredAuthQRPIN"])            return MSIDPreferredAuthMethodQRPIN;
+    
+    return MSIDPreferredAuthMethodNotConfigured;
+}
+
+@end
